@@ -190,18 +190,16 @@
 
   .mark{
     width:46px;height:46px;border-radius:12px;
-    display:grid;place-items:center;
-    font-family:var(--mono);font-size:13px;font-weight:700;letter-spacing:.02em;
-    color:#120A1F;
-    box-shadow:inset 0 1px 0 rgba(255,255,255,.35);
+    object-fit:cover;display:block;
+    background:var(--ink-hi);
+    border:1px solid var(--line);
+    transition:filter .32s,border-color .32s,transform .32s cubic-bezier(.2,.8,.3,1);
   }
-  .m-dk{background:linear-gradient(145deg,#FF2D77,#FF7A3D)}
-  .m-kc{background:linear-gradient(145deg,#FF6B4A,#C2185B)}
-  .m-ft{background:linear-gradient(145deg,#35E0D0,#7BE86B)}
-  .m-ss{background:linear-gradient(145deg,#6C8BFF,#35E0D0)}
-  .m-in{background:linear-gradient(145deg,#F1EAFC,#B79BFF)}
-  .m-ag{background:linear-gradient(145deg,#FFD166,#FF7A3D)}
-  .m-cc{background:linear-gradient(145deg,#B79BFF,#FF2D77)}
+  .card:hover .mark,.card:focus-visible .mark{
+    filter:saturate(1.15) brightness(1.08);
+    border-color:var(--line-hi);
+    transform:scale(1.05);
+  }
 
   .top{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:4px}
   .name{font-size:16.5px;font-weight:700;letter-spacing:-.018em;line-height:1.15}
@@ -271,7 +269,7 @@
   <nav class="stack" aria-label="Products">
 
     <a class="card rise" style="animation-delay:.30s" href="https://agent-6a36130ad93f969236a7f3--dreamkeyautomation.netlify.app" target="_blank" rel="noopener">
-      <span class="mark m-dk" aria-hidden="true">DK</span>
+      <img class="mark" src="thumbs/dreamkey.jpg" alt="DreamKey Automation preview" width="180" height="180" loading="lazy" decoding="async" />
       <span>
         <span class="top">
           <span class="name">DreamKey Automation</span>
@@ -283,7 +281,7 @@
     </a>
 
     <a class="card rise" style="animation-delay:.38s" href="https://krowd-capture.netlify.app/?v=2" target="_blank" rel="noopener">
-      <span class="mark m-kc" aria-hidden="true">KC</span>
+      <img class="mark" src="thumbs/krowdcapture.jpg" alt="KrowdCapture preview" width="180" height="180" loading="lazy" decoding="async" />
       <span>
         <span class="top">
           <span class="name">KrowdCapture</span>
@@ -295,7 +293,7 @@
     </a>
 
     <a class="card rise" style="animation-delay:.46s" href="https://fitmekrazy.netlify.app" target="_blank" rel="noopener">
-      <span class="mark m-ft" aria-hidden="true">FIT</span>
+      <img class="mark" src="thumbs/fitme.jpg" alt="FITme preview" width="180" height="180" loading="lazy" decoding="async" />
       <span>
         <span class="top">
           <span class="name">FITme</span>
@@ -307,7 +305,7 @@
     </a>
 
     <a class="card rise" style="animation-delay:.54s" href="https://shivee999.github.io/skill-stacks" target="_blank" rel="noopener">
-      <span class="mark m-ss" aria-hidden="true">SS</span>
+      <img class="mark" src="thumbs/skillstacks.jpg" alt="Skill Stacks preview" width="180" height="180" loading="lazy" decoding="async" />
       <span>
         <span class="top">
           <span class="name">Skill Stacks</span>
@@ -319,7 +317,7 @@
     </a>
 
     <a class="card rise" style="animation-delay:.62s" href="https://shivee999.github.io/intention-site" target="_blank" rel="noopener">
-      <span class="mark m-in" aria-hidden="true">IN</span>
+      <img class="mark" src="thumbs/intention.jpg" alt="INTENTION preview" width="180" height="180" loading="lazy" decoding="async" />
       <span>
         <span class="top">
           <span class="name">INTENTION</span>
@@ -332,7 +330,7 @@
 
 
     <a class="card rise" style="animation-delay:.70s" href="https://shivee999.github.io/aegis-safety/" target="_blank" rel="noopener">
-      <span class="mark m-ag" aria-hidden="true">AE</span>
+      <img class="mark" src="thumbs/aegis.jpg" alt="Aegis preview" width="180" height="180" loading="lazy" decoding="async" />
       <span>
         <span class="top">
           <span class="name">Aegis</span>
@@ -345,7 +343,7 @@
 
 
     <a class="card rise" style="animation-delay:.78s" href="https://shivee999.github.io/celleb-preview/" target="_blank" rel="noopener">
-      <span class="mark m-cc" aria-hidden="true">CC</span>
+      <img class="mark" src="thumbs/celleb.jpg" alt="CELLeb preview" width="180" height="180" loading="lazy" decoding="async" />
       <span>
         <span class="top">
           <span class="name">CELLeb</span>
