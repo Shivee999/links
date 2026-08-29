@@ -133,6 +133,25 @@ body.locked{overflow:hidden;height:100svh}
 #intro.done{animation:lift 1.1s cubic-bezier(.5,0,.2,1) forwards;pointer-events:none}
 @keyframes lift{to{opacity:0;transform:scale(1.14);filter:blur(16px);visibility:hidden}}
 
+
+/* venture periodic-table backdrop */
+#ptable{position:absolute;inset:0;z-index:1;pointer-events:none}
+#ptable .vt{position:absolute;opacity:0;will-change:transform,opacity;
+  transform:translate(-50%,-50%);filter:blur(.4px)}
+#ptable .vt .el{width:var(--vs);height:var(--vs);font-size:calc(var(--vs)*.66);opacity:.42;
+  box-shadow:0 0 0 1px rgba(6,8,4,.55),0 4px 20px rgba(143,201,58,.20),
+    inset 0 1px 0 rgba(255,255,255,.28),inset 0 -3px 8px rgba(0,0,0,.28)}
+
+#ptable .vt[data-len="2"] .el{font-size:calc(var(--vs)*.40);letter-spacing:-.02em}
+#ptable .vt .el i{font-size:calc(var(--vs)*.17);top:.28em;left:.34em}
+#ptable .vt[data-len="2"] .el i{font-size:calc(var(--vs)*.17);top:.38em;left:.46em}
+#ptable .vt .el u{font-size:calc(var(--vs)*.085);bottom:.24em}
+#ptable .vt[data-len="2"] .el u{font-size:calc(var(--vs)*.085);bottom:.34em}
+#ptable .vt .lbl{display:block;margin-top:6px;text-align:center;
+  font-family:var(--mono);font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:rgba(186,214,96,.5);white-space:nowrap}
+@media (max-width:620px){#ptable .vt .lbl{display:none}}
+
 /* ================= PAGE ================= */
 .wrap{position:relative;z-index:3;width:100%;max-width:540px;margin:0 auto;
   padding:clamp(52px,10vw,84px) var(--gutter) 60px}
@@ -232,6 +251,16 @@ footer{margin-top:42px;padding-top:22px;border-top:1px solid var(--line)}
   <div id="glow" aria-hidden="true"></div>
   <div id="vapour" aria-hidden="true"></div>
   <div id="bub" aria-hidden="true"></div>
+  <div id="ptable" aria-hidden="true">
+    <div class="vt" data-len="2" style="left:11%;top:15%;--vs:46px"><span class="el" aria-hidden="true"><i>75</i>Re<u>Rhenium</u></span><span class="lbl">DreamKey Automation</span></div>
+    <div class="vt" data-len="2" style="left:80%;top:11%;--vs:40px"><span class="el" aria-hidden="true"><i>36</i>Kr<u>Krypton</u></span><span class="lbl">KrowdCapture</span></div>
+    <div class="vt" data-len="1" style="left:90%;top:37%;--vs:40px"><span class="el" aria-hidden="true"><i>9</i>F<u>Fluorine</u></span><span class="lbl">FITme</span></div>
+    <div class="vt" data-len="1" style="left:7%;top:44%;--vs:44px"><span class="el" aria-hidden="true"><i>74</i>W<u>Tungsten</u></span><span class="lbl">WYRE</span></div>
+    <div class="vt" data-len="1" style="left:15%;top:78%;--vs:38px"><span class="el" aria-hidden="true"><i>16</i>S<u>Sulfur</u></span><span class="lbl">Skill Stacks</span></div>
+    <div class="vt" data-len="2" style="left:86%;top:72%;--vs:40px"><span class="el" aria-hidden="true"><i>49</i>In<u>Indium</u></span><span class="lbl">INTENTION</span></div>
+    <div class="vt" data-len="1" style="left:43%;top:7%;--vs:38px"><span class="el" aria-hidden="true"><i>53</i>I<u>Iodine</u></span><span class="lbl">Aegis</span></div>
+    <div class="vt" data-len="2" style="left:57%;top:90%;--vs:40px"><span class="el" aria-hidden="true"><i>58</i>Ce<u>Cerium</u></span><span class="lbl">CELLeb</span></div>
+  </div>
   <div class="stage" id="stage">
     <div class="row">
       <span class="el" data-tile><i>16</i>S<u>Sulfur</u></span><span class="ch">h</span><span class="ch">i</span><span class="ch">v</span><span class="ch">e</span><span class="ch stop">.</span>
@@ -242,8 +271,6 @@ footer{margin-top:42px;padding-top:22px;border-top:1px solid var(--line)}
     <p class="sub" id="isub">Chemistry, applied to software</p>
     <div id="credits">
       <p data-c>A <b>DreamKey Automation</b> Production</p>
-      <p data-c>Founded &amp; Built in <b>Mumbai</b></p>
-      <p data-c>Eight Products &middot; <b>One Founder</b></p>
     </div>
   </div>
   <div class="prog" id="prog" aria-hidden="true"></div>
@@ -346,7 +373,7 @@ footer{margin-top:42px;padding-top:22px;border-top:1px solid var(--line)}
 <script type="module">
 "use strict";
 var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-var RUN = 15500;               /* full title sequence length, ms */
+var RUN = 8600;                /* title sequence length, ms */
 
 /* ---------- seed page atmosphere ---------- */
 (function(){
@@ -480,26 +507,44 @@ try{
     /* 3. slow push-in on the whole frame */
     animate(stage,{ scale:[.94,1.07], duration:RUN, ease:"linear", easing:"linear" });
 
-    /* 4. element tiles punch through the smoke */
+    /* 4. the venture shelf assembles in the smoke — every product as an element */
+    const vts=intro.querySelectorAll("#ptable .vt");
+    vts.forEach(v=>v.style.opacity=0);
+    animate(vts,{
+      opacity:[0,.95], scale:[.45,1], rotate:[-14,0],
+      duration:760, delay:(el,i)=>420+i*105, ease:"inOutQuad", easing:"easeInOutQuad"
+    });
+    /* then they drift and recede as the title takes the frame */
+    vts.forEach((el,i)=>{
+      const d=i%2?1:-1;
+      animate(el,{
+        translateX:[0,d*(10+Math.random()*16)+"px"],
+        translateY:[0,(i%3-1)*(14+Math.random()*14)+"px"],
+        duration:RUN, delay:400, ease:"linear", easing:"linear"
+      });
+    });
+    animate(vts,{ opacity:[.95,.34], duration:900, delay:2600, ease:"inOutQuad", easing:"easeInOutQuad" });
+
+    /* 5. the two title tiles punch through, in front */
     animate(tiles,{ scale:[2.6,1], rotate:[-18,0], opacity:[0,1],
-      duration:1000, delay:(el,i)=>2600+i*2400, ease:"inOutQuad", easing:"easeInOutQuad" });
+      duration:760, delay:(el,i)=>2300+i*1150, ease:"inOutQuad", easing:"easeInOutQuad" });
 
-    /* 5. letters resolve out of blur */
-    animate(chars,{ opacity:[0,1], translateY:[18,0], filter:["blur(11px)","blur(0px)"],
-      duration:700, delay:(el,i)=> (i<5?3400+i*150 : 5800+(i-5)*150), ease:"inOutQuad", easing:"easeInOutQuad" });
+    /* 6. letters resolve out of blur */
+    animate(chars,{ opacity:[0,1], translateY:[16,0], filter:["blur(11px)","blur(0px)"],
+      duration:520, delay:(el,i)=> (i<5?2850+i*95 : 4000+(i-5)*95), ease:"inOutQuad", easing:"easeInOutQuad" });
 
-    /* 6. tagline breathes open */
+    /* 7. tagline breathes open */
     animate(sub,{ opacity:[0,1], letterSpacing:["1.2em",".42em"],
-      duration:1300, delay:7600, ease:"inOutQuad", easing:"easeInOutQuad" });
+      duration:900, delay:5100, ease:"inOutQuad", easing:"easeInOutQuad" });
 
-    /* 7. credit cards fade through, one at a time */
+    /* 8. single credit card */
     creds.forEach((el,i)=>{
       animate(el,{ opacity:[0,.95,.95,0], translateY:[10,0,0,-8],
-        duration:2400, delay:9200+i*2000, ease:"inOutQuad", easing:"easeInOutQuad" });
+        duration:2100, delay:6300+i*2000, ease:"inOutQuad", easing:"easeInOutQuad" });
     });
 
     /* 8. skip affordance + progress bar */
-    animate(skip,{ opacity:[0,1], duration:600, delay:1200, ease:"inOutQuad", easing:"easeInOutQuad" });
+    animate(skip,{ opacity:[0,1], duration:500, delay:800, ease:"inOutQuad", easing:"easeInOutQuad" });
     animate(document.getElementById("prog"),{ width:["0%","100%"], duration:RUN, ease:"linear", easing:"linear" });
 
     timers.push(setTimeout(endIntro, RUN));
